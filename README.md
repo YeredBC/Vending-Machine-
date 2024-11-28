@@ -1,4 +1,4 @@
-  ![Texto alternativo](VENDING)
+  ![Texto alternativo](VENDING.webp)
 
 
 
