@@ -16,29 +16,32 @@ In this machine it is not possible to enter more than 99 pesos and if the money 
 4. [Initial Setup](#initial-setup)
 5. [Installation](#installation)
 6. [Basys 3](#basys-3)
-7. [Save to Memory](#save-to-memory)
-8. [Vivado](#vivado)
-9. [Simulation](#simulation)
-10. [Code](#code)
+7. [Code](#code)
+8. [Save to Memory](#save-to-memory)
+9. [Vivado](#vivado)
+10. [Simulation](#simulation)
 11. [Add New Things](#add-new-things)
 12. [Important Links](#important-links)
 13. [Contact](#contact)
 
-## Requirements
+# Requirements
+To run this project you need the following components:
+-Vivado
+-Basys 3
 
-## Inital Setup
+# Inital Setup
 
 ## Installation
 
-## BASYS-3
+# BASYS-3
 
-## Codes
+# Codes
 
-## Save to Memory
+# Save to Memory
 
-## Vivado
+# Vivado
 
-## Simulation
+# Simulation
 
 
 
