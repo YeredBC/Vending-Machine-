@@ -103,14 +103,12 @@ The ProductSelector module is crucial for vending machines, enabling:
 Description
 The CoinCounter module is a digital system that counts coins of different denominations (1, 2, 5, and 10 units). It displays the accumulated total on a 7-segment display, with the total split into tens and units. The user interacts with the system via switches that represent different coin values, and the total is displayed using multiplexing.
 Functionality
-
 1. Coin Counting
    The system detects coin insertion through the switches `sw_1`, `sw_2`, `sw_5`, and `sw_10`. Each switch corresponds to a specific coin value:
    - `sw_1` -> 1 unit
    - `sw_2` -> 2 units
    - `sw_5` -> 5 units
    - `sw_10` -> 10 units
-
    When a switch detects a rising edge (coin insertion), the total is incremented by the corresponding coin value. The total is capped at 99 units.
 2. Display Control
    The total is split into tens and units for display:
@@ -119,7 +117,6 @@ Functionality
    These values are displayed alternately using multiplexing, controlled by a slower clock signal.
 3. Clock Divider
    A 100 MHz clock input is divided by 100,000 to produce a 1 kHz clock (`clk_divider`) for managing the display multiplexing.
-
 4. Reset
    A reset input ensures the system initializes with the total set to 0, preventing undefined behavior on startup or reset.
 Inputs and Outputs
@@ -144,6 +141,7 @@ How it Works
    The `anode` signal controls which digit (tens or units) is active, while `seg_display` drives the individual segments of the 7-segment display.
 Applications
 The CoinCounter module is useful in systems requiring coin-based input and display feedback, such as:
+
 - Coin-operated machines (e.g., vending machines).
 - Real-time coin counting systems.
 - Educational projects demonstrating digital systems and multiplexing.
@@ -154,16 +152,12 @@ Description
 ChangeCalculator module is designed to calculate the change to be returned in a vending machine or similar system. It takes the total amount of money inserted (from the CoinCounter), compares it to the price of the selected product, and outputs the change. It also includes a button debounce mechanism to ensure stable button presses for confirming the transaction.
 
 Functionality
-
 1. Button Debouncing
    The module implements a debouncing mechanism for the `confirm_btn` signal to avoid multiple unintended triggers caused by noisy button presses. A counter (`debounce_count`) is used to wait for the button to stabilize before recognizing the button press as valid.
-
 2. Change Calculation
    The `ChangeCalculator` compares the total accumulated amount (`total`) from the CoinCounter with the price of the selected product (`price`). If the total is greater than or equal to the price, it calculates the change as `change_internal = total - price`. If there is insufficient money, it sets the change to zero and marks the change as invalid.
-
 3. Output Change Validity
    The module outputs a `change_valid` signal to indicate whether the calculated change is valid. If the total amount is greater than or equal to the price, `change_valid` is set to '1'; otherwise, it is set to '0'.
-
 Inputs and Outputs
 Inputs
 - `clk`: 100 MHz clock signal from the FPGA.
@@ -185,20 +179,15 @@ How it Works
 3. Output Assignment
    - The calculated change value is assigned to the `change` output, which can then be used by other parts of the system (such as a display or coin dispenser).
 Applications
+
 The ChangeCalculator module is particularly useful in applications that require:
 - Vending machines: To calculate and return the correct amount of change after a user selects a product and inserts money.
 - Coin-operated systems: Systems that need to handle transactions and return the correct change to the user.
 - Self-service kiosks: Where users pay for goods or services and need to receive change.
 
-Summary of the Main Features
-- Button Debouncing: Ensures stable button press detection by using a counter and synchronization technique.
-- Change Calculation: Determines the change based on the total inserted amount and the price of the product.
-- Valid Change Output: The `change_valid` signal indicates if the change calculation is valid based on the total and price.
-
 # Multiplexor
 Description
 The Multiplexor module is designed to manage the multiplexing of multiple displays, including the CoinCounter, ProductSelector, and Change displays in a vending machine system. It alternates between the CoinCounter and ProductSelector displays while displaying the change value when it is valid. The module controls the anodes and segments of the 7-segment displays based on the current selection.
-
 Functionality
 1. Clock Divider
    A 100 MHz clock is divided to create a slower clock signal (2 kHz) used for multiplexing the displays. This is achieved by counting clock cycles and toggling the `clk_div` signal when the count reaches a defined divisor value (`DIVISOR = 50000`).
@@ -210,7 +199,6 @@ Functionality
    The module multiplexes between the CoinCounter and ProductSelector displays when the `change_valid` signal is low. The `digit_sel` signal toggles between these two displays. The `seg_display` and `anode` outputs control which display is active at any given time.
 4. 7-Segment Display Encoding
    Each digit (tens or units) is encoded into a 7-segment display pattern. The module uses a case statement to map binary values to corresponding segment patterns for each digit (0-9).
-
 Inputs and Outputs
 Inputs
 - `clk`: 100 MHz clock signal from the FPGA.
@@ -220,13 +208,11 @@ Inputs
 - `seg_prod`: 7-bit signal controlling the segments of the ProductSelector display.
 - `change_valid`: Signal indicating whether the change value is valid.
 - `change`: Integer value representing the amount of change.
-
 Outputs
 - `seg_display`: 7-bit output controlling the segments of the final display.
 - `anode`: 4-bit output controlling the active digit (tens or units) of the final display.
 
 How it Works
-
 1. Clock Division
    The 100 MHz clock is divided by 50,000 to generate a 2 kHz clock (`clk_div`) for display multiplexing.
 
