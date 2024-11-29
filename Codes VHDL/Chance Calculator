@@ -1,0 +1,67 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity ChangeCalculator is
+    Port (
+        clk          : in STD_LOGIC;   -- Reloj de 100 MHz
+        reset        : in STD_LOGIC;   -- Reset
+        confirm_btn  : in STD_LOGIC;   -- Botón de confirmación
+        total        : in UNSIGNED(6 downto 0); -- Total acumulado (CoinCounter)
+        price        : in INTEGER;     -- Precio del producto seleccionado
+        change       : out INTEGER;    -- Cambio a devolver
+        change_valid : out STD_LOGIC   -- Señal de cambio válido
+    );
+end ChangeCalculator;
+
+architecture Behavioral of ChangeCalculator is
+    signal btn_sync, btn_stable : STD_LOGIC := '0'; -- Señales de antirrebote
+    signal debounce_count       : INTEGER := 0;
+    constant DEBOUNCE_LIMIT     : INTEGER := 100000; -- Ajusta según frecuencia del reloj
+    signal change_internal      : INTEGER := 0;
+begin
+    -- Proceso de antirrebote
+    process(clk, reset)
+    begin
+        if reset = '1' then
+            btn_sync <= '0';
+            btn_stable <= '0';
+            debounce_count <= 0;
+        elsif rising_edge(clk) then
+            -- Sincronización del botón
+            if confirm_btn = btn_sync then
+                if debounce_count < DEBOUNCE_LIMIT then
+                    debounce_count <= debounce_count + 1;
+                else
+                    btn_stable <= confirm_btn; -- Botón estable
+                end if;
+            else
+                debounce_count <= 0; -- Reiniciar contador si cambia el estado
+            end if;
+            btn_sync <= confirm_btn; -- Sincronización
+        end if;
+    end process;
+
+    -- Cálculo del cambio
+    process(clk, reset)
+    begin
+        if reset = '1' then
+            change_internal <= 0;
+            change_valid <= '0';
+        elsif rising_edge(clk) then
+            if btn_stable = '1' then
+                if to_integer(total) >= price then
+                    change_internal <= to_integer(total) - price;
+                    change_valid <= '1'; -- Indicar que el cambio es válido
+                else
+                    change_internal <= 0; -- Sin cambio, no hay suficiente dinero
+                    change_valid <= '0';
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- Asignar salida del cambio
+    change <= change_internal;
+
+end Behavioral;
