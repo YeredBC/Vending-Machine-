@@ -150,29 +150,68 @@ The CoinCounter module is useful in systems requiring coin-based input and displ
 
 
 # ChangeCalculator
+Description
+ChangeCalculator module is designed to calculate the change to be returned in a vending machine or similar system. It takes the total amount of money inserted (from the CoinCounter), compares it to the price of the selected product, and outputs the change. It also includes a button debounce mechanism to ensure stable button presses for confirming the transaction.
+
+Functionality
+
+1. Button Debouncing
+   The module implements a debouncing mechanism for the `confirm_btn` signal to avoid multiple unintended triggers caused by noisy button presses. A counter (`debounce_count`) is used to wait for the button to stabilize before recognizing the button press as valid.
+
+2. Change Calculation
+   The `ChangeCalculator` compares the total accumulated amount (`total`) from the CoinCounter with the price of the selected product (`price`). If the total is greater than or equal to the price, it calculates the change as `change_internal = total - price`. If there is insufficient money, it sets the change to zero and marks the change as invalid.
+
+3. Output Change Validity
+   The module outputs a `change_valid` signal to indicate whether the calculated change is valid. If the total amount is greater than or equal to the price, `change_valid` is set to '1'; otherwise, it is set to '0'.
+
+Inputs and Outputs
+Inputs
+- `clk`: 100 MHz clock signal from the FPGA.
+- `reset`: Resets the system, clearing the button debounce state and internal calculations.
+- `confirm_btn`: Button signal used to confirm the transaction and calculate change.
+- `total`: Total accumulated value (from CoinCounter), represented as a 7-bit unsigned value.
+- `price`: Integer value representing the price of the selected product.
+Outputs
+- `change`: Integer output representing the calculated change to be returned.
+- `change_valid`: Signal indicating whether the calculated change is valid (`'1'` for valid, `'0'` for invalid).
+How it Works
+1. Button Debouncing
+   - The `confirm_btn` signal is synchronized and stabilized using the `btn_sync` and `btn_stable` signals.
+   - A `debounce_count` is incremented until it reaches a defined threshold (`DEBOUNCE_LIMIT`). Once the button is stable, the stable signal (`btn_stable`) is used to trigger the change calculation.
+2. Change Calculation
+   - When the `btn_stable` signal is high, the system checks if the total accumulated value (`total`) is greater than or equal to the product's price (`price`).
+   - If the total is sufficient, the change is calculated as `change_internal = total - price`, and the `change_valid` signal is set to `'1'`.
+   - If the total is insufficient, the `change_internal` is set to `0`, and `change_valid` is set to `'0'`.
+3. Output Assignment
+   - The calculated change value is assigned to the `change` output, which can then be used by other parts of the system (such as a display or coin dispenser).
+Applications
+The ChangeCalculator module is particularly useful in applications that require:
+- Vending machines: To calculate and return the correct amount of change after a user selects a product and inserts money.
+- Coin-operated systems: Systems that need to handle transactions and return the correct change to the user.
+- Self-service kiosks: Where users pay for goods or services and need to receive change.
+
+Summary of the Main Features
+- Button Debouncing: Ensures stable button press detection by using a counter and synchronization technique.
+- Change Calculation: Determines the change based on the total inserted amount and the price of the product.
+- Valid Change Output: The `change_valid` signal indicates if the change calculation is valid based on the total and price.
 
 # Multiplexor
 Description
 The Multiplexor module is designed to manage the multiplexing of multiple displays, including the CoinCounter, ProductSelector, and Change displays in a vending machine system. It alternates between the CoinCounter and ProductSelector displays while displaying the change value when it is valid. The module controls the anodes and segments of the 7-segment displays based on the current selection.
 
 Functionality
-
 1. Clock Divider
    A 100 MHz clock is divided to create a slower clock signal (2 kHz) used for multiplexing the displays. This is achieved by counting clock cycles and toggling the `clk_div` signal when the count reaches a defined divisor value (`DIVISOR = 50000`).
-
 2. Change Display
    When the `change_valid` signal is high, the module displays the value of the change on the 7-segment display:
    - The `change` value is split into tens and units using integer division and modulo operations.
    - The tens and units are displayed alternately, with the corresponding anode being activated for each digit.
-
 3. Multiplexing
    The module multiplexes between the CoinCounter and ProductSelector displays when the `change_valid` signal is low. The `digit_sel` signal toggles between these two displays. The `seg_display` and `anode` outputs control which display is active at any given time.
-
 4. 7-Segment Display Encoding
    Each digit (tens or units) is encoded into a 7-segment display pattern. The module uses a case statement to map binary values to corresponding segment patterns for each digit (0-9).
 
 Inputs and Outputs
-
 Inputs
 - `clk`: 100 MHz clock signal from the FPGA.
 - `anode_coin`: 4-bit signal controlling the anodes of the CoinCounter display.
