@@ -45,6 +45,15 @@ Once the simulation on the web page acts the way we expect it to work and we tes
 
 
 # Codes
+## Product Selector
+
+## Coin Counter
+
+## Change Calculator
+
+## Multiplexor
+
+## Vending Machine Top
 
 # Save to Memory
 
