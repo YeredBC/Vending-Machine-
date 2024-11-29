@@ -18,9 +18,9 @@ In this machine it is not possible to enter more than 99 pesos and if the money 
 4. [Initial Setup](#initial-setup)
 5. [Installation](#installation)
 6. [Basys 3](#basys-3)
-7. [Product Selector](#ProdutSelector)
-8.  [Coin Counter](#CoinCpunter)
-9. [Change Calculator](#ChanceCalculator)
+7. [Product Selector](#ProductSelector)
+8.  [Coin Counter](#CoinCounter)
+9. [Change Calculator](#ChangeCalculator)
 10. [Multiplexor](#Multiplexor)
 11. [Vending Machine Top](#VendingMachineTop)
 12. [Save to Memory](#save-to-memory)
@@ -50,7 +50,7 @@ We test our code using the EDA Playground website. On this page we can test the 
 Once the simulation on the web page acts the way we expect it to work and we test combinations that should not be possible so that we can avoid errors in the software, we can export the code to Vivado, where we can transfer it to Basys 3
 
 
-# ProductSelector
+# Product Selector
 Description
 The ProductSelector module is part of a vending machine system. It manages product selection and displays the price of the selected product on a 7-segment display. The user interacts with the system via a 5-bit switch (sw_select), and the corresponding price is displayed dynamically using multiplexing.
 Functionality
@@ -99,13 +99,13 @@ The ProductSelector module is crucial for vending machines, enabling:
 - Efficient resource usage through multiplexed display control.
 - Scalability for additional features or products.
 
-# CoinCounter
+# Coin Counter
 
-# ChangeCalculator
+# Change Calculator
 
 # Multiplexor
 
-# VendingMachine Top
+# Vending Machine Top
 
 # Save to Memory
 
