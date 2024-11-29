@@ -401,7 +401,7 @@ Pin Assignments
 | `anode[3]`        | W4        | Anode control for 7-segment display  |
 | `confirm_btn`     | U18       | Button to confirm transaction        |
 
-Summary of Application
+
 
 This constraints file is designed for configuring the physical pins and I/O standards of an FPGA for a vending machine system. It ensures that the FPGA can interface with the following components:
 - Clock Signal: Provides synchronization for the entire system.
