@@ -1,6 +1,8 @@
 ## Vending Machine
 
-  ![Texto alternativo](VENDING.webp)
+  <div align="center">
+  <img src="" alt="Descripción de la imagen" width="300">
+</div>
 
 
 ## Project Overview
