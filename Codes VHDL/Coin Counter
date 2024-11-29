@@ -1,0 +1,146 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity CoinCounter is
+    Port (
+        clk         : in STD_LOGIC;                    -- Reloj de 100 MHz
+        reset       : in STD_LOGIC;                    -- Reset
+        sw_1        : in STD_LOGIC;                    -- Moneda de 1
+        sw_2        : in STD_LOGIC;                    -- Moneda de 2
+        sw_5        : in STD_LOGIC;                    -- Moneda de 5
+        sw_10       : in STD_LOGIC;                    -- Moneda de 10
+        seg_display : out STD_LOGIC_VECTOR(6 downto 0); -- Display de 7 segmentos
+        anode       : out STD_LOGIC_VECTOR(3 downto 0); -- Control de anodos
+        total       : out UNSIGNED(6 downto 0)         -- Total acumulado
+    );
+end CoinCounter;
+
+architecture Behavioral of CoinCounter is
+    signal total_internal : UNSIGNED(6 downto 0) := (others => '0');
+    signal clk_divider    : STD_LOGIC := '0';                          
+    signal digit_sel      : STD_LOGIC := '0';                        
+    signal decenas, unidades : STD_LOGIC_VECTOR(3 downto 0);        
+    signal count          : INTEGER := 0;                            
+    signal sw_1_prev, sw_2_prev, sw_5_prev, sw_10_prev : STD_LOGIC := '0'; -- Estados previos de los switches
+
+    constant DIVISOR : INTEGER := 100000; -- Divisor para generar un reloj de 1 kHz desde 100 MHz
+   
+begin
+    -- Proceso para generar un reloj lento (1 kHz) para el multiplexado
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if count = DIVISOR - 1 then
+                count <= 0;
+                clk_divider <= not clk_divider;
+            else
+                count <= count + 1;
+            end if;
+        end if;
+    end process;
+
+    -- Proceso de conteo y detección de flancos de subida en los switches
+    process(clk, reset)
+    begin
+        if reset = '1' then
+            total_internal <= (others => '0');
+            sw_1_prev <= '0';
+            sw_2_prev <= '0';
+            sw_5_prev <= '0';
+            sw_10_prev <= '0';
+        elsif rising_edge(clk) then
+            -- Detectar flanco de subida en cada switch
+            if sw_1 = '1' and sw_1_prev = '0' then
+                total_internal <= total_internal + to_unsigned(1, total_internal'length); -- Moneda de $1
+            elsif sw_2 = '1' and sw_2_prev = '0' then
+                total_internal <= total_internal + to_unsigned(2, total_internal'length); -- Moneda de $2
+            elsif sw_5 = '1' and sw_5_prev = '0' then
+                total_internal <= total_internal + to_unsigned(5, total_internal'length); -- Moneda de $5
+            elsif sw_10 = '1' and sw_10_prev = '0' then
+                total_internal <= total_internal + to_unsigned(10, total_internal'length); -- Moneda de $10
+            end if;
+
+            -- Actualizar el estado previo de cada switch
+            sw_1_prev <= sw_1;
+            sw_2_prev <= sw_2;
+            sw_5_prev <= sw_5;
+            sw_10_prev <= sw_10;
+
+            -- Limitar el valor a 99
+            if total_internal > to_unsigned(99, total_internal'length) then
+                total_internal <= to_unsigned(99, total_internal'length);
+            end if;
+        end if;
+    end process;
+
+    -- Asignar la señal total interna al puerto de salida
+    total <= total_internal;
+
+    -- Separar decenas y unidades
+    process(total_internal)
+        variable total_int : integer;
+    begin
+        total_int := to_integer(total_internal);
+        decenas <= std_logic_vector(to_unsigned(total_int / 10, 4));
+        unidades <= std_logic_vector(to_unsigned(total_int mod 10, 4));
+    end process;
+
+    -- Proceso para multiplexar el display
+    process(clk_divider)
+    begin
+        if rising_edge(clk_divider) then
+            digit_sel <= not digit_sel;
+        end if;
+    end process;
+
+    -- Mostrar los valores en el display de 7 segmentos
+    process(digit_sel, decenas, unidades, total_internal)
+    begin
+        if total_internal = 0 then
+            -- Si el total es 0, muestra "0" en ambos dígitos
+            seg_display <= "1000000"; -- "0" en 7 segmentos
+            if digit_sel = '0' then
+                anode <= "1110"; -- Activar unidades
+            else
+                anode <= "1101"; -- Activar decenas
+            end if;
+        else
+            -- Mostrar el valor real de las decenas y unidades
+            if digit_sel = '0' then
+                -- Mostrar unidades
+                case unidades is
+                    when "0000" => seg_display <= "1000000"; -- 0
+                    when "0001" => seg_display <= "1111001"; -- 1
+                    when "0010" => seg_display <= "0100100"; -- 2
+                    when "0011" => seg_display <= "0110000"; -- 3
+                    when "0100" => seg_display <= "0011001"; -- 4
+                    when "0101" => seg_display <= "0010010"; -- 5
+                    when "0110" => seg_display <= "0000010"; -- 6
+                    when "0111" => seg_display <= "1111000"; -- 7
+                    when "1000" => seg_display <= "0000000"; -- 8
+                    when "1001" => seg_display <= "0010000"; -- 9
+                    when others => seg_display <= "1111111"; -- Error
+                end case;
+                anode <= "1110";
+            else
+                -- Mostrar decenas
+                case decenas is
+                    when "0000" => seg_display <= "1000000"; -- 0
+                    when "0001" => seg_display <= "1111001"; -- 1
+                    when "0010" => seg_display <= "0100100"; -- 2
+                    when "0011" => seg_display <= "0110000"; -- 3
+                    when "0100" => seg_display <= "0011001"; -- 4
+                    when "0101" => seg_display <= "0010010"; -- 5
+                    when "0110" => seg_display <= "0000010"; -- 6
+                    when "0111" => seg_display <= "1111000"; -- 7
+                    when "1000" => seg_display <= "0000000"; -- 8
+                    when "1001" => seg_display <= "0010000"; -- 9
+                    when others => seg_display <= "1111111"; -- Error
+                end case;
+                anode <= "1101";
+            end if;
+        end if;
+    end process;
+
+end Behavioral;
