@@ -1,7 +1,7 @@
 ## Vending Machine
 
   <div align="center">
-  <img src="" alt="Descripción de la imagen" width="300">
+  <img src="VENDING.webp" alt="Real Vending Machine" width="300">
 </div>
 
 
