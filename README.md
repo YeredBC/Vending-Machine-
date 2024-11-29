@@ -247,6 +247,63 @@ The Multiplexor module is useful for systems that require efficient management o
 
 # VendingMachineTop
 
+Description
+
+The VendingMachineTop module is the top-level entity for a vending machine system that integrates multiple submodules to handle coin insertion, product selection, price display, and change calculation. It connects the functionality of several components: a CoinCounter, ProductSelector, ChangeCalculator, and Multiplexor to create a fully operational vending machine system.
+
+Functionality
+
+1. Coin Insertion
+   - The system receives inputs from four switches representing different coin values (`sw_1`, `sw_2`, `sw_5`, `sw_10`). When the user inserts coins, these switches are activated, and the `CoinCounter` module accumulates the total amount of money inserted.
+
+2. Product Selection
+   - The user selects a product by activating one of the 5 switches (`sw_select`). Each switch corresponds to a different product, and the `ProductSelector` module determines the price of the selected product.
+
+3. Change Calculation
+   - Once the product is selected, and the user presses the **confirm button** (`confirm_btn`), the `ChangeCalculator` module calculates the change to be returned based on the total inserted money (`total`) and the price of the selected product (`price`).
+
+4. Display and Multiplexing
+   - The CoinCounter and ProductSelector modules each have their own 7-segment display (`seg_coin` for coins and `seg_prod` for products), which show the current total amount inserted and the price of the selected product, respectively. 
+   - The Multiplexor module handles the multiplexing of the displays to show the correct information (either the total amount or the product price) on a single 7-segment display.
+
+5. Output Control
+   - The `seg_display` and `anode` signals control the multiplexed 7-segment display and the anodes corresponding to each digit. The display shows either the total amount of money inserted, the selected product price, or the calculated change, depending on the current state of the system.
+
+Inputs and Outputs
+
+Inputs
+- `clk`: 100 MHz clock signal for synchronization.
+- `reset`: Resets the entire system, clearing the internal states.
+- `sw_1`, `sw_2`, `sw_5`, `sw_10`: Switches for inserting coins of values 1, 2, 5, and 10 units, respectively.
+- `sw_select`: 5-bit vector representing the product selection. Each bit corresponds to a different product.
+- `confirm_btn`: Button used to confirm the transaction and calculate change.
+
+Outputs
+- `seg_display`: 7-segment display showing either the total inserted amount, the product price, or the change to be returned.
+- `anode`: Controls the anodes for the multiplexed 7-segment display.
+
+Internal Connections
+
+1. CoinCounter: 
+   - The `CoinCounter` module tracks the total amount of money inserted by the user. It updates the `total` signal based on the active coin switches (`sw_1`, `sw_2`, `sw_5`, `sw_10`) and controls its own display (`seg_coin`) and anodes (`anode_coin`).
+
+2. ProductSelector: 
+   - The `ProductSelector` module takes the product selection input (`sw_select`) and determines the price of the selected product, outputting this value to the `price` signal. It also controls its own display (`seg_prod`) and anodes (`anode_prod`).
+
+3. ChangeCalculator: 
+   - This module calculates the change based on the `total` inserted and the `price` of the selected product. It uses the `confirm_btn` signal to trigger the calculation and outputs the calculated change via the `change` signal. The `change_valid` signal indicates whether the calculated change is valid.
+
+4. Multiplexor: 
+   - The `Multiplexor` module multiplexes between the CoinCounter and ProductSelector displays, showing the correct information on the final display (`seg_display`) and controlling the anodes (`anode`). It also ensures that when the change is valid, the system shows the calculated change.
+
+Applications
+
+- Vending Machines: Handles coin insertion, product selection, and change calculation in automated systems.
+- Self-Service Kiosks: Can be used in systems where users make a purchase, select items, and receive change.
+- Coin-Operated Systems: Any system where coins are inserted, products are selected, and change needs to be calculated and returned.
+
+This top-level module ties together several components of the vending machine system, ensuring that users can interact with the system efficiently and receive accurate feedback (total money inserted, selected product price, and change).
+
 # Save to Memory
 
 # Vivado
