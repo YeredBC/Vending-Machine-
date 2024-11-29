@@ -100,6 +100,54 @@ The ProductSelector module is crucial for vending machines, enabling:
 - Scalability for additional features or products.
 
 # CoinCounter
+Description
+The CoinCounter module is a digital system that counts coins of different denominations (1, 2, 5, and 10 units). It displays the accumulated total on a 7-segment display, with the total split into tens and units. The user interacts with the system via switches that represent different coin values, and the total is displayed using multiplexing.
+Functionality
+
+1. Coin Counting
+   The system detects coin insertion through the switches `sw_1`, `sw_2`, `sw_5`, and `sw_10`. Each switch corresponds to a specific coin value:
+   - `sw_1` -> 1 unit
+   - `sw_2` -> 2 units
+   - `sw_5` -> 5 units
+   - `sw_10` -> 10 units
+
+   When a switch detects a rising edge (coin insertion), the total is incremented by the corresponding coin value. The total is capped at 99 units.
+2. Display Control
+   The total is split into tens and units for display:
+   - Tens: total / 10
+   - Units: total mod 10
+   These values are displayed alternately using multiplexing, controlled by a slower clock signal.
+3. Clock Divider
+   A 100 MHz clock input is divided by 100,000 to produce a 1 kHz clock (`clk_divider`) for managing the display multiplexing.
+
+4. Reset
+   A reset input ensures the system initializes with the total set to 0, preventing undefined behavior on startup or reset.
+Inputs and Outputs
+Inputs
+- `clk`: 100 MHz clock signal from the FPGA.
+- `reset`: Resets the system and sets the total to 0.
+- `sw_1`, `sw_2`, `sw_5`, `sw_10`: Switches representing coin values.
+Outputs
+- `seg_display`: 7-bit output controlling the segments of the 7-segment display.
+- `anode`: 4-bit output controlling the active digit (tens or units).
+- `total`: Integer output showing the accumulated total of coins.
+How it Works
+1. Clock Division
+   The 100 MHz clock is divided by 100,000 to produce a 1 kHz clock (`clk_divider`) suitable for display multiplexing.
+2. Coin Counting and Edge Detection
+   The system detects coin insertion by detecting rising edges on the switches. The total is incremented accordingly.
+3. Multiplexing
+   The 1 kHz clock alternates between displaying the tens and units digits, enabling efficient use of the 7-segment display.
+4. 7-Segment Encoding
+   The tens and units values are converted into segment patterns, which are used to control the 7-segment display.
+5. Display Control
+   The `anode` signal controls which digit (tens or units) is active, while `seg_display` drives the individual segments of the 7-segment display.
+Applications
+The CoinCounter module is useful in systems requiring coin-based input and display feedback, such as:
+- Coin-operated machines (e.g., vending machines).
+- Real-time coin counting systems.
+- Educational projects demonstrating digital systems and multiplexing.
+
 
 # ChangeCalculator
 
