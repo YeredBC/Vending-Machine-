@@ -48,6 +48,8 @@ Once the simulation on the web page acts the way we expect it to work and we tes
 
 # Codes
 ## Product Selector
+### Description
+The ProductSelector module is part of a vending machine system. It manages product selection and displays the price of the selected product on a 7-segment display. The user interacts with the system via a 5-bit switch (sw_select), and the corresponding price is displayed dynamically using multiplexing.
 
 ## Coin Counter
 
