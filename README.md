@@ -61,8 +61,10 @@ The sw_select input determines which product is selected. Each combination of th
 If no valid product is selected, the price defaults to 0.
 ### 2. Price Display
 The price is shown on a 7-segment display. It is divided into tens and units using arithmetic operations:
+
 - Tens: price_internal / 10
 - Units: price_internal mod 10
+
 These digits are displayed alternately using multiplexing, controlled by a slower clock signal.
 ### 3. Clock Divider
 A 100 MHz clock input is divided into a 1 kHz signal for managing the display multiplexing.
