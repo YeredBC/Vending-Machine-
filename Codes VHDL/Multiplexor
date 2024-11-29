@@ -1,0 +1,101 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity Multiplexor is
+    Port (
+        clk          : in STD_LOGIC;                   -- Reloj de 100 MHz
+        anode_coin   : in STD_LOGIC_VECTOR(3 downto 0); -- Anodos de CoinCounter
+        anode_prod   : in STD_LOGIC_VECTOR(3 downto 0); -- Anodos de ProductSelector
+        seg_coin     : in STD_LOGIC_VECTOR(6 downto 0); -- Display de CoinCounter
+        seg_prod     : in STD_LOGIC_VECTOR(6 downto 0); -- Display de ProductSelector
+        change_valid : in STD_LOGIC;                   -- Señal de cambio válido
+        change       : in INTEGER;                     -- Valor del cambio
+        seg_display  : out STD_LOGIC_VECTOR(6 downto 0); -- Display final
+        anode        : out STD_LOGIC_VECTOR(3 downto 0)  -- Anodos finales
+    );
+end Multiplexor;
+
+architecture Behavioral of Multiplexor is
+    signal digit_sel : STD_LOGIC := '0'; -- Selección de dígito
+    signal clk_div   : STD_LOGIC := '0'; -- Reloj dividido
+    signal count     : INTEGER := 0;
+    constant DIVISOR : INTEGER := 50000; -- Divisor para multiplexado (2 kHz)
+    signal decenas, unidades : STD_LOGIC_VECTOR(3 downto 0); -- Valores separados del cambio
+begin
+
+    -- Proceso para generar un reloj lento para el multiplexado
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if count = DIVISOR - 1 then
+                count <= 0;
+                clk_div <= not clk_div;
+            else
+                count <= count + 1;
+            end if;
+        end if;
+    end process;
+
+    -- Separar decenas y unidades del cambio
+    process(change)
+    begin
+        decenas <= std_logic_vector(to_unsigned(change / 10, 4));
+        unidades <= std_logic_vector(to_unsigned(change mod 10, 4));
+    end process;
+
+    -- Proceso para multiplexar entre displays de CoinCounter, ProductSelector y Change
+    process(clk_div, anode_coin, anode_prod, seg_coin, seg_prod, change_valid, decenas, unidades,digit_sel)
+    begin
+        if rising_edge(clk_div) then
+            digit_sel <= not digit_sel; -- Alternar entre displays
+        end if;
+
+        if change_valid = '1' then
+            -- Mostrar el cambio en los displays
+            if digit_sel = '0' then
+                -- Mostrar unidades del cambio
+                case unidades is
+                    when "0000" => seg_display <= "1000000"; -- 0
+                    when "0001" => seg_display <= "1111001"; -- 1
+                    when "0010" => seg_display <= "0100100"; -- 2
+                    when "0011" => seg_display <= "0110000"; -- 3
+                    when "0100" => seg_display <= "0011001"; -- 4
+                    when "0101" => seg_display <= "0010010"; -- 5
+                    when "0110" => seg_display <= "0000010"; -- 6
+                    when "0111" => seg_display <= "1111000"; -- 7
+                    when "1000" => seg_display <= "0000000"; -- 8
+                    when "1001" => seg_display <= "0010000"; -- 9
+                    when others => seg_display <= "1111111"; -- Error
+                end case;
+                anode <= "1110"; -- Activa el dígito de unidades
+            else
+                -- Mostrar decenas del cambio
+                case decenas is
+                    when "0000" => seg_display <= "1000000"; -- 0
+                    when "0001" => seg_display <= "1111001"; -- 1
+                    when "0010" => seg_display <= "0100100"; -- 2
+                    when "0011" => seg_display <= "0110000"; -- 3
+                    when "0100" => seg_display <= "0011001"; -- 4
+                    when "0101" => seg_display <= "0010010"; -- 5
+                    when "0110" => seg_display <= "0000010"; -- 6
+                    when "0111" => seg_display <= "1111000"; -- 7
+                    when "1000" => seg_display <= "0000000"; -- 8
+                    when "1001" => seg_display <= "0010000"; -- 9
+                    when others => seg_display <= "1111111"; -- Error
+                end case;
+                anode <= "1101"; -- Activa el dígito de decenas
+            end if;
+        else
+            -- Mostrar valores de CoinCounter y ProductSelector como antes
+            if digit_sel = '0' then
+                seg_display <= seg_coin;
+                anode <= anode_coin;
+            else
+                seg_display <= seg_prod;
+                anode <= anode_prod;
+            end if;
+        end if;
+    end process;
+
+end Behavioral;
