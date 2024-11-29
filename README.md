@@ -92,7 +92,9 @@ The slower clock alternates between the tens and units digits, activating one di
 The digits are encoded into segment patterns based on the binary representation of the tens and units values.
 4. Display Control
 The anode signal activates the appropriate display segment, while seg_display drives the individual segments of the 7-segment display.
+
 Aplications
+
 The ProductSelector module is crucial for vending machines, enabling:
 
 - Real-time product selection feedback.
@@ -139,7 +141,10 @@ How it Works
    The tens and units values are converted into segment patterns, which are used to control the 7-segment display.
 5. Display Control
    The `anode` signal controls which digit (tens or units) is active, while `seg_display` drives the individual segments of the 7-segment display.
+
+
 Applications
+
 The CoinCounter module is useful in systems requiring coin-based input and display feedback, such as:
 
 - Coin-operated machines (e.g., vending machines).
@@ -178,9 +183,11 @@ How it Works
    - If the total is insufficient, the `change_internal` is set to `0`, and `change_valid` is set to `'0'`.
 3. Output Assignment
    - The calculated change value is assigned to the `change` output, which can then be used by other parts of the system (such as a display or coin dispenser).
+
 Applications
 
 The ChangeCalculator module is particularly useful in applications that require:
+
 - Vending machines: To calculate and return the correct amount of change after a user selects a product and inserts money.
 - Coin-operated systems: Systems that need to handle transactions and return the correct change to the user.
 - Self-service kiosks: Where users pay for goods or services and need to receive change.
@@ -200,6 +207,7 @@ Functionality
 4. 7-Segment Display Encoding
    Each digit (tens or units) is encoded into a 7-segment display pattern. The module uses a case statement to map binary values to corresponding segment patterns for each digit (0-9).
 Inputs and Outputs
+
 Inputs
 - `clk`: 100 MHz clock signal from the FPGA.
 - `anode_coin`: 4-bit signal controlling the anodes of the CoinCounter display.
@@ -208,6 +216,7 @@ Inputs
 - `seg_prod`: 7-bit signal controlling the segments of the ProductSelector display.
 - `change_valid`: Signal indicating whether the change value is valid.
 - `change`: Integer value representing the amount of change.
+
 Outputs
 - `seg_display`: 7-bit output controlling the segments of the final display.
 - `anode`: 4-bit output controlling the active digit (tens or units) of the final display.
@@ -229,6 +238,7 @@ How it Works
    The `anode` signal controls which digit is active (tens or units), while `seg_display` controls the individual segments of the 7-segment display.
 
  Applications
+
 The Multiplexor module is useful for systems that require efficient management of multiple displays, such as:
 
 - Vending machines: Displaying product selection, coin counting, and change information on shared displays.
