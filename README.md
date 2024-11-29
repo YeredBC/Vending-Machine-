@@ -152,6 +152,63 @@ The CoinCounter module is useful in systems requiring coin-based input and displ
 # ChangeCalculator
 
 # Multiplexor
+Description
+The Multiplexor module is designed to manage the multiplexing of multiple displays, including the CoinCounter, ProductSelector, and Change displays in a vending machine system. It alternates between the CoinCounter and ProductSelector displays while displaying the change value when it is valid. The module controls the anodes and segments of the 7-segment displays based on the current selection.
+
+Functionality
+
+1. Clock Divider
+   A 100 MHz clock is divided to create a slower clock signal (2 kHz) used for multiplexing the displays. This is achieved by counting clock cycles and toggling the `clk_div` signal when the count reaches a defined divisor value (`DIVISOR = 50000`).
+
+2. Change Display
+   When the `change_valid` signal is high, the module displays the value of the change on the 7-segment display:
+   - The `change` value is split into tens and units using integer division and modulo operations.
+   - The tens and units are displayed alternately, with the corresponding anode being activated for each digit.
+
+3. Multiplexing
+   The module multiplexes between the CoinCounter and ProductSelector displays when the `change_valid` signal is low. The `digit_sel` signal toggles between these two displays. The `seg_display` and `anode` outputs control which display is active at any given time.
+
+4. 7-Segment Display Encoding
+   Each digit (tens or units) is encoded into a 7-segment display pattern. The module uses a case statement to map binary values to corresponding segment patterns for each digit (0-9).
+
+Inputs and Outputs
+
+Inputs
+- `clk`: 100 MHz clock signal from the FPGA.
+- `anode_coin`: 4-bit signal controlling the anodes of the CoinCounter display.
+- `anode_prod`: 4-bit signal controlling the anodes of the ProductSelector display.
+- `seg_coin`: 7-bit signal controlling the segments of the CoinCounter display.
+- `seg_prod`: 7-bit signal controlling the segments of the ProductSelector display.
+- `change_valid`: Signal indicating whether the change value is valid.
+- `change`: Integer value representing the amount of change.
+
+Outputs
+- `seg_display`: 7-bit output controlling the segments of the final display.
+- `anode`: 4-bit output controlling the active digit (tens or units) of the final display.
+
+How it Works
+
+1. Clock Division
+   The 100 MHz clock is divided by 50,000 to generate a 2 kHz clock (`clk_div`) for display multiplexing.
+
+2. Change Display
+   The `change` value is split into tens and units using division and modulo operations. The corresponding 7-segment display patterns are selected based on these values.
+
+3. Multiplexing
+   The `digit_sel` signal alternates between the CoinCounter and ProductSelector displays, toggling every time the `clk_div` signal pulses. The corresponding `seg_display` and `anode` outputs are updated based on the active display.
+
+4. 7-Segment Encoding
+   The tens and units values are encoded into 7-segment display patterns using a case statement. The patterns are then output to the `seg_display` based on the current digit.
+
+5. Display Control
+   The `anode` signal controls which digit is active (tens or units), while `seg_display` controls the individual segments of the 7-segment display.
+
+ Applications
+The Multiplexor module is useful for systems that require efficient management of multiple displays, such as:
+
+- Vending machines: Displaying product selection, coin counting, and change information on shared displays.
+- Coin-operated systems: Managing multiple types of information on a limited number of displays.
+- Educational projects: Demonstrating multiplexing, clock division, and display control.
 
 # VendingMachineTop
 
