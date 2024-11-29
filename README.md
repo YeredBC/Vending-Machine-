@@ -50,7 +50,7 @@ We test our code using the EDA Playground website. On this page we can test the 
 Once the simulation on the web page acts the way we expect it to work and we test combinations that should not be possible so that we can avoid errors in the software, we can export the code to Vivado, where we can transfer it to Basys 3
 
 
-# Product Selector
+# ProductSelector
 Description
 The ProductSelector module is part of a vending machine system. It manages product selection and displays the price of the selected product on a 7-segment display. The user interacts with the system via a 5-bit switch (sw_select), and the corresponding price is displayed dynamically using multiplexing.
 Functionality
@@ -99,13 +99,13 @@ The ProductSelector module is crucial for vending machines, enabling:
 - Efficient resource usage through multiplexed display control.
 - Scalability for additional features or products.
 
-# Coin Counter
+# CoinCounter
 
-# Change Calculator
+# ChangeCalculator
 
 # Multiplexor
 
-# Vending Machine Top
+# VendingMachineTop
 
 # Save to Memory
 
