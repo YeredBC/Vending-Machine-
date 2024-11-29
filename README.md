@@ -58,6 +58,7 @@ The sw_select input determines which product is selected. Each combination of th
 - 00100 -> 24
 - 01000 -> 30
 - 10000 -> 35
+
 If no valid product is selected, the price defaults to 0.
 ### 2. Price Display
 The price is shown on a 7-segment display. It is divided into tens and units using arithmetic operations:
