@@ -327,6 +327,90 @@ This top-level module ties together several components of the vending machine sy
 
 # Vivado
 
+We add the codes in Vivado, but we also had to add a code called Master, in order to transfer the information into the Basys 3:
+
+Description
+
+This code is a constraints file (typically used in FPGA design) written for Xilinx Vivado, which specifies the pin assignments and I/O standards for a particular FPGA project. It maps the physical pins on the FPGA to the logical signals (ports) defined in the VHDL code and sets the I/O standard for each signal to LVCMOS33 (Low Voltage CMOS, 3.3V).
+
+The main elements in this constraints file are the clock signal, switches, 7-segment display connections, and buttons. Each of these components is linked to a specific physical pin on the FPGA board.
+
+Components
+
+1. Clock Signal
+   - Pin Assignment: The clock signal (`clk`) is mapped to the pin `W5` on the FPGA.
+   - IO Standard: The I/O standard is set to **LVCMOS33**, meaning that the signal will operate at 3.3V logic levels.
+   - Clock Constraints: A clock is created with a period of 10.00 ns (100 MHz frequency). The waveform defines the rising and falling edges of the clock (`{0 5}`), corresponding to the start and middle of the clock period.
+
+2. Switches for Coin Insertion and Product Selection
+   - Coin Inputs: 
+     - `sw_1`, `sw_2`, `sw_5`, `sw_10` are the four switches corresponding to the 1, 2, 5, and 10-unit coins.
+     - These switches are mapped to pins `V17`, `V16`, `W16`, and `W17`, respectively.
+   - Product Selection: 
+     - The `sw_select` input is a 5-bit vector representing the product selection (each bit corresponds to a product).
+     - Each bit in the vector is mapped to a separate pin: 
+       - `sw_select[0]` to pin `R3`
+       - `sw_select[1]` to pin `W2`
+       - `sw_select[2]` to pin `U1`
+       - `sw_select[3]` to pin `T1`
+       - `sw_select[4]` to pin `R2`
+   - Reset: 
+     - The reset signal (`reset`) is mapped to pin `W13`.
+
+3. 7-Segment Display
+   - Segment Pins: The 7-segment display is used to show the total money inserted, product price, or calculated change. 
+     - Each segment of the display is connected to a specific FPGA pin (`seg_display[0]` to `seg_display[6]`), mapped to pins `W7`, `W6`, `U8`, `V8`, `U5`, `V5`, and `U7`, respectively.
+   - Anode Pins: The anode controls for the 7-segment display are mapped to pins `U2`, `U4`, `V4`, and `W4` (corresponding to `anode[0]`, `anode[1]`, `anode[2]`, and `anode[3]`).
+
+4. Button for Confirming Transaction
+   - Confirm Button: The `confirm_btn` is mapped to pin `U18` and is used to confirm the selection and calculate change after the coins are inserted and a product is selected.
+
+Summary of Features
+
+- Clock Setup: The clock signal is set up with a 100 MHz frequency and mapped to pin `W5`.
+- Switches: The 4 switches for coin insertion and the 5 switches for product selection are mapped to specific pins.
+- 7-Segment Display: The 7-segment display for showing information is connected to multiple pins, with 7 pins for the segments and 4 pins for the anodes.
+- Confirm Button: A button to confirm the transaction is assigned to pin `U18`.
+- I/O Standard: All signals are assigned to LVCMOS33, which is a standard 3.3V logic level for the FPGA inputs and outputs.
+
+Pin Assignments
+
+| Signal            | Pin       | Description                          |
+|-------------------|-----------|--------------------------------------|
+| `clk`             | W5        | Clock input, 100 MHz                 |
+| `sw_1`            | V17       | Coin switch for 1 unit               |
+| `sw_2`            | V16       | Coin switch for 2 units              |
+| `sw_5`            | W16       | Coin switch for 5 units              |
+| `sw_10`           | W17       | Coin switch for 10 units             |
+| `reset`           | W13       | Reset signal                         |
+| `sw_select[0]`    | R3        | Product selection, bit 0             |
+| `sw_select[1]`    | W2        | Product selection, bit 1             |
+| `sw_select[2]`    | U1        | Product selection, bit 2             |
+| `sw_select[3]`    | T1        | Product selection, bit 3             |
+| `sw_select[4]`    | R2        | Product selection, bit 4             |
+| `seg_display[0]`  | W7        | 7-segment display segment 0          |
+| `seg_display[1]`  | W6        | 7-segment display segment 1          |
+| `seg_display[2]`  | U8        | 7-segment display segment 2          |
+| `seg_display[3]`  | V8        | 7-segment display segment 3          |
+| `seg_display[4]`  | U5        | 7-segment display segment 4          |
+| `seg_display[5]`  | V5        | 7-segment display segment 5          |
+| `seg_display[6]`  | U7        | 7-segment display segment 6          |
+| `anode[0]`        | U2        | Anode control for 7-segment display  |
+| `anode[1]`        | U4        | Anode control for 7-segment display  |
+| `anode[2]`        | V4        | Anode control for 7-segment display  |
+| `anode[3]`        | W4        | Anode control for 7-segment display  |
+| `confirm_btn`     | U18       | Button to confirm transaction        |
+
+Summary of Application
+
+This constraints file is designed for configuring the physical pins and I/O standards of an FPGA for a vending machine system. It ensures that the FPGA can interface with the following components:
+- Clock Signal: Provides synchronization for the entire system.
+- Switches: Used for inserting coins and selecting products.
+- 7-Segment Display: Displays the total money inserted, product prices, and change.
+- Confirm Button: Initiates the change calculation process.
+
+This configuration file is essential for linking the logical VHDL design to the physical hardware of the FPGA, allowing the vending machine system to function as intended.
+
 # Simulation
 
 
