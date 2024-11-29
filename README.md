@@ -28,8 +28,8 @@ In this machine it is not possible to enter more than 99 pesos and if the money 
 
 # Requirements
 To run this project you need the following components:
--Vivado
--Basys 3
+- Vivado
+- Basys 3
 
 # Inital Setup
 
@@ -53,16 +53,16 @@ The ProductSelector module is part of a vending machine system. It manages produ
 ### Functionality
 ### 1. Product Selector
 The sw_select input determines which product is selected. Each combination of the switch maps to a specific price:
--00001 -> 10
--00010 -> 18
--00100 -> 24
--01000 -> 30
--10000 -> 35
+- 00001 -> 10
+- 00010 -> 18
+- 00100 -> 24
+- 01000 -> 30
+- 10000 -> 35
 If no valid product is selected, the price defaults to 0.
 ### 2. Price Display
 The price is shown on a 7-segment display. It is divided into tens and units using arithmetic operations:
--Tens: price_internal / 10
--Units: price_internal mod 10
+- Tens: price_internal / 10
+- Units: price_internal mod 10
 These digits are displayed alternately using multiplexing, controlled by a slower clock signal.
 ### 3. Clock Divider
 A 100 MHz clock input is divided into a 1 kHz signal for managing the display multiplexing.
@@ -70,13 +70,13 @@ A 100 MHz clock input is divided into a 1 kHz signal for managing the display mu
 A reset input ensures the system initializes with the price set to 0, preventing undefined behavior on startup or reset.
 ## Inputs and Outputs
 ### Inputs
--clk: 100 MHz clock signal from the FPGA.
--reset: Resets the system and sets the price to 0.
--sw_select: 5-bit input for product selection.
+- clk: 100 MHz clock signal from the FPGA.
+- reset: Resets the system and sets the price to 0.
+- sw_select: 5-bit input for product selection.
 ### Output 
--seg_display: 7-bit output controlling the 7-segment display segments.
--anode: 4-bit output controlling the active digit (tens or units).
--price: Integer output showing the price of the selected product.
+- seg_display: 7-bit output controlling the 7-segment display segments.
+- anode: 4-bit output controlling the active digit (tens or units).
+- price: Integer output showing the price of the selected product.
 ## How it Works
 ### 1. Clock Division
 The high-frequency clock is divided by a factor of 100,000 to produce a slower clock signal (clk_divider) suitable for multiplexing.
@@ -89,9 +89,9 @@ The anode signal activates the appropriate display segment, while seg_display dr
 ## Aplications
 The ProductSelector module is crucial for vending machines, enabling:
 
--Real-time product selection feedback.
--Efficient resource usage through multiplexed display control.
--Scalability for additional features or products.
+- Real-time product selection feedback.
+- Efficient resource usage through multiplexed display control.
+- Scalability for additional features or products.
 
 ## Coin Counter
 
