@@ -52,8 +52,11 @@ Once the simulation on the web page acts the way we expect it to work and we tes
 
 # ProductSelector
 Description
+
 The ProductSelector module is part of a vending machine system. It manages product selection and displays the price of the selected product on a 7-segment display. The user interacts with the system via a 5-bit switch (sw_select), and the corresponding price is displayed dynamically using multiplexing.
+
 Functionality
+
 1. Product Selector
 The sw_select input determines which product is selected. Each combination of the switch maps to a specific price:
 - 00001 -> 10
@@ -83,7 +86,9 @@ Output
 - seg_display: 7-bit output controlling the 7-segment display segments.
 - anode: 4-bit output controlling the active digit (tens or units).
 - price: Integer output showing the price of the selected product.
+
 How it Works
+
 1. Clock Division
 The high-frequency clock is divided by a factor of 100,000 to produce a slower clock signal (clk_divider) suitable for multiplexing.
 2. Multiplexing
@@ -102,7 +107,9 @@ The ProductSelector module is crucial for vending machines, enabling:
 - Scalability for additional features or products.
 
 # CoinCounter
+
 Description
+
 The CoinCounter module is a digital system that counts coins of different denominations (1, 2, 5, and 10 units). It displays the accumulated total on a 7-segment display, with the total split into tens and units. The user interacts with the system via switches that represent different coin values, and the total is displayed using multiplexing.
 Functionality
 1. Coin Counting
@@ -130,7 +137,9 @@ Outputs
 - `seg_display`: 7-bit output controlling the segments of the 7-segment display.
 - `anode`: 4-bit output controlling the active digit (tens or units).
 - `total`: Integer output showing the accumulated total of coins.
+
 How it Works
+
 1. Clock Division
    The 100 MHz clock is divided by 100,000 to produce a 1 kHz clock (`clk_divider`) suitable for display multiplexing.
 2. Coin Counting and Edge Detection
