@@ -1,0 +1,82 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity VendingMachineTop is
+    Port (
+        clk           : in STD_LOGIC;                     -- Reloj de 100 MHz
+        reset         : in STD_LOGIC;                     -- Reset general
+        sw_1          : in STD_LOGIC;                     -- Moneda de 1
+        sw_2          : in STD_LOGIC;                     -- Moneda de 2
+        sw_5          : in STD_LOGIC;                     -- Moneda de 5
+        sw_10         : in STD_LOGIC;                     -- Moneda de 10
+        sw_select     : in STD_LOGIC_VECTOR(4 downto 0);  -- Selección de producto
+        confirm_btn   : in STD_LOGIC;                     -- Botón de confirmación
+        seg_display   : out STD_LOGIC_VECTOR(6 downto 0); -- Display de 7 segmentos
+        anode         : out STD_LOGIC_VECTOR(3 downto 0)  -- Control de anodos
+    );
+end VendingMachineTop;
+
+architecture Behavioral of VendingMachineTop is
+    -- Señales internas para conectar los módulos
+    signal total       : UNSIGNED(6 downto 0);            -- Total acumulado de CoinCounter
+    signal price       : INTEGER := 0;                   -- Precio del producto seleccionado
+    signal change      : INTEGER;                        -- Cambio calculado
+    signal change_valid : STD_LOGIC;                     -- Indica si el cambio es válido
+
+    -- Señales para los displays multiplexados
+    signal seg_coin, seg_prod : STD_LOGIC_VECTOR(6 downto 0); -- Displays de CoinCounter y ProductSelector
+    signal anode_coin, anode_prod : STD_LOGIC_VECTOR(3 downto 0); -- Anodos correspondientes
+begin
+    -- Instancia del módulo CoinCounter
+    CoinCounter_inst: entity work.CoinCounter
+        port map (
+            clk => clk,
+            reset => reset,
+            sw_1 => sw_1,
+            sw_2 => sw_2,
+            sw_5 => sw_5,
+            sw_10 => sw_10,
+            seg_display => seg_coin,  -- Salida del display de CoinCounter
+            anode => anode_coin,      -- Anodos de CoinCounter
+            total => total            -- Total acumulado
+        );
+
+    -- Instancia del módulo ProductSelector
+    ProductSelector_inst: entity work.ProductSelector
+        port map (
+            clk => clk,
+            reset => reset,
+            sw_select => sw_select,
+            seg_display => seg_prod,  -- Salida del display de ProductSelector
+            anode => anode_prod,      -- Anodos de ProductSelector
+            price => price            -- Precio del producto seleccionado
+        );
+
+    -- Instancia del módulo ChangeCalculator
+    ChangeCalculator_inst: entity work.ChangeCalculator
+        port map (
+            clk => clk,
+            reset => reset,
+            confirm_btn => confirm_btn,
+            total => total,           -- Conexión al total acumulado
+            price => price,           -- Precio del producto
+            change => change,         -- Cambio calculado
+            change_valid => change_valid -- Señal de cambio válido
+        );
+
+    -- Instancia del módulo Multiplexor
+    Multiplexor_inst: entity work.Multiplexor
+        port map (
+            clk => clk,
+            anode_coin => anode_coin, -- Anodos de CoinCounter
+            anode_prod => anode_prod, -- Anodos de ProductSelector
+            seg_coin => seg_coin,     -- Display de CoinCounter
+            seg_prod => seg_prod,     -- Display de ProductSelector
+            change_valid => change_valid, -- Señal de cambio válido
+            change => change,         -- Cambio calculado
+            seg_display => seg_display, -- Display multiplexado final
+            anode => anode             -- Anodos multiplexados finales
+        );
+
+end Behavioral;
