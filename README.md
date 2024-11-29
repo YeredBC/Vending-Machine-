@@ -301,7 +301,7 @@ Outputs
 - `seg_display`: 7-segment display showing either the total inserted amount, the product price, or the change to be returned.
 - `anode`: Controls the anodes for the multiplexed 7-segment display.
 
-Internal Connections
+How it Works
 
 1. CoinCounter: 
    - The `CoinCounter` module tracks the total amount of money inserted by the user. It updates the `total` signal based on the active coin switches (`sw_1`, `sw_2`, `sw_5`, `sw_10`) and controls its own display (`seg_coin`) and anodes (`anode_coin`).
