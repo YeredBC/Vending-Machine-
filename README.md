@@ -372,7 +372,7 @@ To use the Vivado software we have to follow certain steps in which the order is
 The next step is to select the parts and specifications of the board, the parts of the Basys 3 board we will be using are the next:
 
 <div align="center">
-  <img src="imagen_2024-11-29_222431414.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225057218.png" alt="" width="300">
 </div>
 
 What is needed to do now is to upload both the constraints of the Basys 3 board and the code for your program, the code goes in the design courses option and needs to be in the form of a .vhd file. You can download the Basys 3 Master.xdc file from the Basys 3 home page 
