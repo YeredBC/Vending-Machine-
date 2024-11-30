@@ -412,6 +412,7 @@ This constraints file is designed for configuring the physical pins and I/O stan
 This configuration file is essential for linking the logical VHDL design to the physical hardware of the FPGA, allowing the vending machine system to function as intended.
 
 # Simulation
+[![Watch the video](https://img.youtube.com/vi/CPo0y3lBXI8/0.jpg)](https://youtube.com/shorts/CPo0y3lBXI8)
 
 
 
