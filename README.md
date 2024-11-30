@@ -357,6 +357,12 @@ The next step is to select the parts and specifications of the board, the parts 
 
 What is needed to do now is to upload both the constraints of the Basys 3 board and the code for your program, the code goes in the design courses option and needs to be in the form of a .vhd file. You can download the Basys 3 Master.xdc file from the Basys 3 home page 
 https://digilent.com/reference/programmable-logic/basys-3/start
+<div align="center">
+  <img src="imagen_2024-11-29_222729599.png" alt="" width="300">
+</div>
+
+In here it is important to make sure all the constraints are in order taking into account the inputs and outputs of the design course.
+
 
 
 
@@ -447,6 +453,17 @@ This constraints file is designed for configuring the physical pins and I/O stan
 This configuration file is essential for linking the logical VHDL design to the physical hardware of the FPGA, allowing the vending machine system to function as intended.
 
 # Simulation
+To implement all the codes in the Basys 3:
+
+You can run the synthesis and know if there is something wrong with either the code or the constraints, if everything is right, run the implementation and create the bitstream.
+
+<div align="center">
+  <img src="imagen_2024-11-29_222729599.png" alt="" width="300">
+</div>
+
+
+
+
 
 [![Watch the video](https://img.youtube.com/vi/CPo0y3lBXI8/0.jpg)](https://youtube.com/shorts/CPo0y3lBXI8)
 
