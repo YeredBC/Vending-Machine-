@@ -325,9 +325,9 @@ This top-level module ties together several components of the vending machine sy
 # Save to Memory
 This was our work delivered, however things can still be added to make it a much more robust code, among the improvements the best would be to be able to save the code on the board so that it works without any need other than being connected to the electric current. There’s Below is a list of the steps to follow:
 - Go to the user manual of the board used and in the memory part check its size
-- 
+ 
 <div align="center">
-  <img src="imagen_2024-11-29_223130245.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225427821.png" alt="" width="300">
 </div>
 
 - Select the QSPI option on our board, this allows the program to write to its memory
