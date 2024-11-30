@@ -26,9 +26,8 @@ In this machine it is not possible to enter more than 99 pesos and if the money 
 12. [Save to Memory](#save-to-memory)
 13. [Vivado](#vivado)
 14. [Simulation](#simulation)
-15. [Add New Things](#add-new-things)
-16. [Important Links](#important-links)
-17. [Contact](#contact)
+15. [Important Links](#important-links)
+16. [Contact](#contact)
 
 # Requirements
 To run this project you need the following components:
