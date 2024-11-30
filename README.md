@@ -485,19 +485,25 @@ After this just open the hardware manager and autoconnect the board your using a
 As we can observe in the simulation example, we have four types of coins as previously mentioned. Once all the previously explained codes are implemented, when different types of coins are entered, and subsequently a product is selected (its price will be displayed on the other two 7-segment displays), upon pressing the confirm button, the system will give change if necessary. If not, no change will be provided. Another point to note is that if there is insufficient money according to the product's price, the machine will not dispense anything. This gives us an example of how a vending machine operates.
 
 # Important Links
+
 Basys 3 manual
+
 https://digilent.com/reference/_media/basys3:basys3_rm.pdf?srsltid=AfmBOooQNotWHen_vsun-2Rw9Ve-KsR49CDYBq43LxJerVI0FiAGw-bW
+
 Install vivado
+
 https://www.xilinx.com/content/xilinx/en/support/download.html/
 
 
 # Contact
 Authors:
-Miguel Efrain Gutierrez Medina 179939 - miguel.gutierrezma@udlap.mx 
-Ian Adonay Beristain Bermúdez 180428 - ian.beristainbz@udlap.mx 
-Yered Yosshiel Bojorquez Castillo 168886 - yered.bojorquezco@udlap.mx - GitHub: YeredBC
-Luis Eduardo Hernández González 180740 - luis.hernandezgz@udlap.mx - GitHub: LuisHernandezGz
-Project Link: EDA/github
+- Miguel Efrain Gutierrez Medina 179939 - miguel.gutierrezma@udlap.mx
+  
+- Ian Adonay Beristain Bermúdez 180428 - ian.beristainbz@udlap.mx
+   
+- Yered Yosshiel Bojorquez Castillo 168886 - yered.bojorquezco@udlap.mx - GitHub: YeredBC
+  
+- Luis Eduardo Hernández González 180740 - luis.hernandezgz@udlap.mx - GitHub: LuisHernandezGz
 
 
 
