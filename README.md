@@ -332,14 +332,24 @@ This was our work delivered, however things can still be added to make it a much
 </div>
 
 - Select the QSPI option on our board, this allows the program to write to its memory
-- <div align="center">
+  <div align="center">
   <img src="imagen_2024-11-29_223306170.png" alt="" width="300">
 </div>
 
 - Once with our project in vivado we go to settings, bistream and tick bin file option
-  - <div align="center">
-  <img src="" alt="" width="300">
+  <div align="center">
+  <img src="imagen_2024-11-29_223406830.png" alt="" width="300">
 </div>
+
+- We follow the steps previously explained in the Vivado section, once we have connected the board to the computer, we right click on the identification code of our card and select "Add configuration 
+ memory device" a pop-up window will open where we will select the manufacturer of the board and its memory in mega bits, we select the first option (In which the family says "s25flxxxp") and click on ok, 
+ after which another pop-up window will appear, ok again
+<div align="center">
+  <img src="imagen_2024-11-29_223406830.png" alt="" width="300">
+</div>
+
+
+
 
 
 
