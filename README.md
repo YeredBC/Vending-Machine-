@@ -339,7 +339,7 @@ This was our work delivered, however things can still be added to make it a much
 - Once with our project in vivado we go to settings, bistream and tick bin file option
   
   <div align="center">
-  <img src="imagen_2024-11-29_223406830.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225603438.png" alt="" width="300">
 </div>
 
 - We follow the steps previously explained in the Vivado section, once we have connected the board to the computer, we right click on the identification code of our card and select "Add configuration 
