@@ -355,6 +355,11 @@ The next step is to select the parts and specifications of the board, the parts 
   <img src="imagen_2024-11-29_222431414.png" alt="" width="300">
 </div>
 
+What is needed to do now is to upload both the constraints of the Basys 3 board and the code for your program, the code goes in the design courses option and needs to be in the form of a .vhd file. You can download the Basys 3 Master.xdc file from the Basys 3 home page 
+https://digilent.com/reference/programmable-logic/basys-3/start
+
+
+
 
 
 We add the codes in Vivado, but we also had to add a code called Master, in order to transfer the information into the Basys 3:
