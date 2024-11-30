@@ -474,7 +474,7 @@ To implement all the codes in the Basys 3:
 You can run the synthesis and know if there is something wrong with either the code or the constraints, if everything is right, run the implementation and create the bitstream.
 
 <div align="center">
-  <img src="imagen_2024-11-29_222937802.png" alt="" width="300">
+  <img src="imagen_2024-11-29_224912056.png" alt="" width="300">
 </div>
 
 After this just open the hardware manager and autoconnect the board your using and select the option at the top named program board
