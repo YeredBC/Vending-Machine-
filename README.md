@@ -347,7 +347,7 @@ This was our work delivered, however things can still be added to make it a much
  after which another pop-up window will appear, ok again
 
 <div align="center">
-  <img src="imagen_2024-11-29_223507679.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225705182.png" alt="" width="300">
 </div>
 
 - We select the file which we want to save, remember it must have a .bin extension, we must also tick the erase, program and verify options and finally we click ok, after which we can click program device 
