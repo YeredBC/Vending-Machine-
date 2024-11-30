@@ -333,7 +333,7 @@ This was our work delivered, however things can still be added to make it a much
 - Select the QSPI option on our board, this allows the program to write to its memory
   
   <div align="center">
-  <img src="imagen_2024-11-29_223306170.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225520941.png" alt="" width="300">
 </div>
 
 - Once with our project in vivado we go to settings, bistream and tick bin file option
