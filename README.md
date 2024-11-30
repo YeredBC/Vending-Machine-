@@ -35,7 +35,7 @@ To run this project you need the following components:
 - Vivado
 - Basys 3
 
-# Inital-Setup
+# Initial-Setup
 
 ## Installation
 For this project, the use of vivado was essential, which can be found on the AMD website: https://amd.com/es/products/software/adaptive-socs-and-fpgas/vivado.html It should be noted that a user license is required for its use, the version we used to create this machine was version 2022.1.
