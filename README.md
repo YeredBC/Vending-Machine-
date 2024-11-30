@@ -379,7 +379,7 @@ What is needed to do now is to upload both the constraints of the Basys 3 board 
 https://digilent.com/reference/programmable-logic/basys-3/start
 
 <div align="center">
-  <img src="imagen_2024-11-29_222729599.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225227531.png" alt="" width="300">
 </div>
 
 In here it is important to make sure all the constraints are in order taking into account the inputs and outputs of the design course.
