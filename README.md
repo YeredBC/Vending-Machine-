@@ -331,11 +331,13 @@ This was our work delivered, however things can still be added to make it a much
 </div>
 
 - Select the QSPI option on our board, this allows the program to write to its memory
+  
   <div align="center">
   <img src="imagen_2024-11-29_223306170.png" alt="" width="300">
 </div>
 
 - Once with our project in vivado we go to settings, bistream and tick bin file option
+  
   <div align="center">
   <img src="imagen_2024-11-29_223406830.png" alt="" width="300">
 </div>
@@ -343,12 +345,14 @@ This was our work delivered, however things can still be added to make it a much
 - We follow the steps previously explained in the Vivado section, once we have connected the board to the computer, we right click on the identification code of our card and select "Add configuration 
  memory device" a pop-up window will open where we will select the manufacturer of the board and its memory in mega bits, we select the first option (In which the family says "s25flxxxp") and click on ok, 
  after which another pop-up window will appear, ok again
+
 <div align="center">
   <img src="imagen_2024-11-29_223507679.png" alt="" width="300">
 </div>
 
 - We select the file which we want to save, remember it must have a .bin extension, we must also tick the erase, program and verify options and finally we click ok, after which we can click program device 
   and continue as usual
+  
   <div align="center">
   <img src="imagen_2024-11-29_223625143.png" alt="" width="300">
 </div>
@@ -373,6 +377,7 @@ The next step is to select the parts and specifications of the board, the parts 
 
 What is needed to do now is to upload both the constraints of the Basys 3 board and the code for your program, the code goes in the design courses option and needs to be in the form of a .vhd file. You can download the Basys 3 Master.xdc file from the Basys 3 home page 
 https://digilent.com/reference/programmable-logic/basys-3/start
+
 <div align="center">
   <img src="imagen_2024-11-29_222729599.png" alt="" width="300">
 </div>
