@@ -15,7 +15,7 @@ In this machine it is not possible to enter more than 99 pesos and if the money 
 1. [Vending Machine](#vending-machine)
 2. [Project Overview](#project-overview)
 3. [Requirements](#requirements)
-4. [Initial Setup](#initial-setup)
+4. [Initial Setup](#Initial-Setup)
 5. [Installation](#installation)
 6. [Basys 3](#basys-3)
 7. [Product Selector](#ProductSelector)
@@ -35,7 +35,7 @@ To run this project you need the following components:
 - Vivado
 - Basys 3
 
-# Inital Setup
+# Inital-Setup
 
 ## Installation
 For this project, the use of vivado was essential, which can be found on the AMD website: https://amd.com/es/products/software/adaptive-socs-and-fpgas/vivado.html It should be noted that a user license is required for its use, the version we used to create this machine was version 2022.1.
