@@ -351,9 +351,11 @@ This was our work delivered, however things can still be added to make it a much
 - We select the file which we want to save, remember it must have a .bin extension, we must also tick the erase, program and verify options and finally we click ok, after which we can click program device 
   and continue as usual
   <div align="center">
-  <img src="imagen_2024-11-29_223507679.png" alt="" width="300">
+  <img src="imagen_2024-11-29_223625143.png" alt="" width="300">
 </div>
-  
+
+  And that's it, we now have the program saved in the board's memory.
+
 
 
 
