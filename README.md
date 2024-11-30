@@ -354,7 +354,7 @@ This was our work delivered, however things can still be added to make it a much
   and continue as usual
   
   <div align="center">
-  <img src="imagen_2024-11-29_223625143.png" alt="" width="300">
+  <img src="imagen_2024-11-29_225746836.png" alt="" width="300">
 </div>
 
   And that's it, we now have the program saved in the board's memory.
