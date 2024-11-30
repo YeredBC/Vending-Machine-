@@ -324,26 +324,9 @@ Applications
 This top-level module ties together several components of the vending machine system, ensuring that users can interact with the system efficiently and receive accurate feedback (total money inserted, selected product price, and change).
 
 # Save to Memory
-To implement the program on the QSPI memory, the next steps must be followed:
+This was our work delivered, however things can still be added to make it a much more robust code, among the improvements the best would be to be able to save the code on the board so that it works without any need other than being connected to the electric current. There’s Below is a list of the steps to follow:
+- Go to the user manual of the board used and in the memory part check its size
 
-Step 1: Connect pins J9 and J10
-Pins J9 and J10 of the Basys 3 are connected to the QSPI memory controller of the FPGA. To configure the Basys 3 for QSPI programming mode, it is necessary to connect these pins to a QSPI programmer. The QSPI programmer must provide power to the Basys 3.
-
-Step 2: Open QSPI programming software
-
-For this section, we will right-click on the option shown in the image and then select "Add Configuration Memory Device."
-
-Then,  We will choose the one that says "Family: s25flxxxp" and click "OK".
-
-With this, the file will be ready and the next thing we must do is verify that the boxes:
-
-Erase
-Program
-Verify
-Are activated and then click on the "Apply" button. In the "Configuration File" section, click the three dots (...) and navigate to the projects you created. Go to the folder with the file extension ".runs" and find the deployment files. After that, select the one you want to save.
-
-Step 3: Click the "Program Device" button
-Click the "Program" button to load the file into the ROM. The programming process may take a few minutes.
 
 
 
@@ -362,11 +345,6 @@ https://digilent.com/reference/programmable-logic/basys-3/start
 </div>
 
 In here it is important to make sure all the constraints are in order taking into account the inputs and outputs of the design course.
-
-
-
-
-
 
 We add the codes in Vivado, but we also had to add a code called Master, in order to transfer the information into the Basys 3:
 
@@ -458,8 +436,11 @@ To implement all the codes in the Basys 3:
 You can run the synthesis and know if there is something wrong with either the code or the constraints, if everything is right, run the implementation and create the bitstream.
 
 <div align="center">
-  <img src="imagen_2024-11-29_222729599.png" alt="" width="300">
+  <img src="imagen_2024-11-29_222937802.png" alt="" width="300">
 </div>
+
+After this just open the hardware manager and autoconnect the board your using and select the option at the top named program board
+
 
 
 
