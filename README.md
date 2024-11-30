@@ -324,8 +324,38 @@ Applications
 This top-level module ties together several components of the vending machine system, ensuring that users can interact with the system efficiently and receive accurate feedback (total money inserted, selected product price, and change).
 
 # Save to Memory
+To implement the program on the QSPI memory, the next steps must be followed:
+
+Step 1: Connect pins J9 and J10
+Pins J9 and J10 of the Basys 3 are connected to the QSPI memory controller of the FPGA. To configure the Basys 3 for QSPI programming mode, it is necessary to connect these pins to a QSPI programmer. The QSPI programmer must provide power to the Basys 3.
+
+Step 2: Open QSPI programming software
+
+For this section, we will right-click on the option shown in the image and then select "Add Configuration Memory Device."
+
+Then,  We will choose the one that says "Family: s25flxxxp" and click "OK".
+
+With this, the file will be ready and the next thing we must do is verify that the boxes:
+
+Erase
+Program
+Verify
+Are activated and then click on the "Apply" button. In the "Configuration File" section, click the three dots (...) and navigate to the projects you created. Go to the folder with the file extension ".runs" and find the deployment files. After that, select the one you want to save.
+
+Step 3: Click the "Program Device" button
+Click the "Program" button to load the file into the ROM. The programming process may take a few minutes.
+
+
 
 # Vivado
+To use the Vivado software we have to follow certain steps in which the order is important. As a first step we need to create a project and use a name which doesn´t have any spaces or special characters that may cause problems later.
+The next step is to select the parts and specifications of the board, the parts of the Basys 3 board we will be using are the next:
+
+<div align="center">
+  <img src="VENDING.webp" alt="Real Vending Machine" width="300">
+</div>
+
+
 
 We add the codes in Vivado, but we also had to add a code called Master, in order to transfer the information into the Basys 3:
 
@@ -412,16 +442,9 @@ This constraints file is designed for configuring the physical pins and I/O stan
 This configuration file is essential for linking the logical VHDL design to the physical hardware of the FPGA, allowing the vending machine system to function as intended.
 
 # Simulation
+
 [![Watch the video](https://img.youtube.com/vi/CPo0y3lBXI8/0.jpg)](https://youtube.com/shorts/CPo0y3lBXI8)
 
+As we can observe in the simulation example, we have four types of coins as previously mentioned. Once all the previously explained codes are implemented, when different types of coins are entered, and subsequently a product is selected (its price will be displayed on the other two 7-segment displays), upon pressing the confirm button, the system will give change if necessary. If not, no change will be provided. Another point to note is that if there is insufficient money according to the product's price, the machine will not dispense anything. This gives us an example of how a vending machine operates.
 
-
-
-
-
-
-## Requirements
-(Tu contenido aquí)
-
-...
 
