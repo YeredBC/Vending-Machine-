@@ -418,6 +418,7 @@ This configuration file is essential for linking the logical VHDL design to the 
 
 
 
+
 ## Requirements
 (Tu contenido aquí)
 
