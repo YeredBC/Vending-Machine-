@@ -352,7 +352,7 @@ To use the Vivado software we have to follow certain steps in which the order is
 The next step is to select the parts and specifications of the board, the parts of the Basys 3 board we will be using are the next:
 
 <div align="center">
-  <img src="VENDING.webp" alt="Real Vending Machine" width="300">
+  <img src="imagen_2024-11-29_222431414.png" alt="" width="300">
 </div>
 
 
